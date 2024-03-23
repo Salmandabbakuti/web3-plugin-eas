@@ -1,0 +1,24 @@
+{
+  "name": "web3-plugin-example",
+  "version": "0.0.1",
+  "description": "Web3 Plugin Example template",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/example-plugin.d.ts",
+  "scripts": {
+    "test": "jest --config=./test/jest.config.js",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "web3": ">= 4.0.3"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.30",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3",
+    "web3": "^4.6.0"
+  }
+}
