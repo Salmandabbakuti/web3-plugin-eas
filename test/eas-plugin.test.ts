@@ -12,6 +12,7 @@ describe("EASPlugin Tests", () => {
     expect(web3.eas.pluginNamespace).toBe("eas");
     expect(web3.eas.schemaRegistry).toBeInstanceOf(Function);
     expect(web3.eas.easCore).toBeInstanceOf(Function);
+    expect(web3.eas.getContractAddresses).toBeInstanceOf(Function);
   });
 });
 
