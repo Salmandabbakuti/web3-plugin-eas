@@ -13,6 +13,13 @@ describe("EASPlugin Tests", () => {
     expect(web3.eas.schemaRegistry).toBeInstanceOf(Function);
     expect(web3.eas.easCore).toBeInstanceOf(Function);
     expect(web3.eas.getContractAddresses).toBeInstanceOf(Function);
+    // const schemaEncoder = new SchemaEncoder("uint256 eventId, uint8 voteIndex");
+    // const encodedData = schemaEncoder.encodeData([
+    //   { name: "eventId", value: 12, type: "uint256" },
+    //   { name: "voteIndex", value: 1, type: "uint8" }
+    // ]);
+
+    // console.log("encodedData", encodedData);
   });
 });
 

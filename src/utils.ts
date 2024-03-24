@@ -1,3 +1,5 @@
+import { utils, Web3 } from "web3";
+
 export type ContractAddresses = {
   schemaRegistry: string;
   eas: string;
@@ -102,3 +104,37 @@ export const contractAddresses: Record<Chain, ContractAddresses> = {
     indexer: "0x7C2cb1eDC328491da52de2a0afc44D3B0Ae7ee17"
   }
 };
+
+export type SchemaValue = string | boolean | number | bigint;
+export interface SchemaItem {
+  name: string;
+  type: string;
+  value: SchemaValue;
+}
+
+export class SchemaEncoder {
+  signature: string[];
+  web3: Web3;
+
+  constructor(schema: string) {
+    this.signature = schema.split(",").map((item: string) => item.trim());
+    this.web3 = new Web3();
+  }
+
+  encodeData(dataSchema: SchemaItem[]): string {
+    const data = dataSchema.map(({ type, value }) => {
+      const sanitizedValue =
+        type === "bytes32" && typeof value === "string"
+          ? utils.utf8ToBytes(value)
+          : value;
+      return sanitizedValue;
+    });
+    console.log("data", data);
+    console.log("signature", this.signature);
+    const encodedData = this.web3.eth.abi.encodeParameters(
+      this.signature,
+      data
+    );
+    return encodedData;
+  }
+}
