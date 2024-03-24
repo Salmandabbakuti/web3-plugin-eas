@@ -2,6 +2,7 @@ import { Web3 } from "web3";
 import { EASPlugin } from "../src";
 
 const rpcUrl = "http://127.0.0.1:8545";
+const chainId = 1;
 
 describe("EASPlugin Tests", () => {
   it("should register example plugin to Web3", () => {
@@ -13,13 +14,19 @@ describe("EASPlugin Tests", () => {
     expect(web3.eas.schemaRegistry).toBeInstanceOf(Function);
     expect(web3.eas.easCore).toBeInstanceOf(Function);
     expect(web3.eas.getContractAddresses).toBeInstanceOf(Function);
-    // const schemaEncoder = new SchemaEncoder("uint256 eventId, uint8 voteIndex");
-    // const encodedData = schemaEncoder.encodeData([
-    //   { name: "eventId", value: 12, type: "uint256" },
-    //   { name: "voteIndex", value: 1, type: "uint8" }
-    // ]);
+  });
 
-    // console.log("encodedData", encodedData);
+  it("should throw error if address passed to plugin functions is not valid", () => {
+    const web3 = new Web3("http://127.0.0.1:8545");
+    web3.registerPlugin(new EASPlugin());
+
+    expect(() => {
+      web3.eas.schemaRegistry("0x123");
+    }).toThrow("EAS Plugin: Invalid Schema Registry Address");
+
+    expect(() => {
+      web3.eas.easCore("0x123");
+    }).toThrow("EAS Plugin: Invalid EAS Address");
   });
 });
 
@@ -31,9 +38,16 @@ describe("EASPlugin Method Tests", () => {
     web3.registerPlugin(new EASPlugin());
   });
 
-  it("someMethod: should return passed data", () => {
-    const res = web3.eas.someMethod("test");
-    expect(typeof res).toBe("string");
-    expect(res).toEqual("test");
+  it("contractAddresses: should throw error if chainId is not supported", () => {
+    expect(() => {
+      web3.eas.getContractAddresses(123);
+    }).toThrow("EAS Plugin: Unsupported ChainId");
+  });
+
+  it("contractAddresses: should get contract addresses for given chainId", () => {
+    const addresses = web3.eas.getContractAddresses(chainId);
+    expect(addresses).toBeInstanceOf(Object);
+    expect(addresses).toHaveProperty("eas");
+    expect(addresses).toHaveProperty("schemaRegistry");
   });
 });
