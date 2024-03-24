@@ -2,12 +2,6 @@ import { Web3PluginBase, Contract, validator } from "web3";
 import { contractAddresses, ContractAddresses, Chain } from "./utils";
 import SchemaRegistryABI from "./abis/schemaRegistry";
 import EASCoreABI from "./abis/eas";
-// import {
-//   EAS,
-//   Offchain,
-//   SchemaEncoder,
-//   SchemaRegistry
-// } from "@ethereum-attestation-service/eas-sdk";
 
 export type SchemaRegistry = Contract<typeof SchemaRegistryABI>;
 export type EASCore = Contract<typeof EASCoreABI>;
@@ -63,7 +57,7 @@ export class EASPlugin extends Web3PluginBase {
    * @throws Error if chain is not a valid chain
    * @example
    * ```ts
-   * const web3 = new Web3("http://)
+   * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new EASPlugin());
    * const addresses = web3.eas.getContractAddresses("ethereum");
    * ```
