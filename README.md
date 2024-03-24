@@ -31,7 +31,7 @@ const web3 = new Web3("https://rpc-mumbai.maticvigil.com"); // Any RPC node you 
 web3.registerPlugin(new EASPlugin());
 
 // Getting contract addresses of given chain
-const addresses = web3.getContractAddresses("polygonMumbai"); // See supported chains for more information.
+const addresses = web3.eas.getContractAddresses("polygonMumbai"); // See supported chains for more information.
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
@@ -82,6 +82,31 @@ const easCore = web3.eas.easCore(addresses.eas);
 ### EAS Core:
 
 #### Example1:
+
+### Supported Chains
+
+`web3-plugin-eas` supports the following chains:
+
+```ts
+export type Chain =
+  | "ethereum"
+  | "optimism"
+  | "base"
+  | "arbitrumOne"
+  | "arbitrumNova"
+  | "polygon"
+  | "scroll"
+  | "linea"
+  | "sepolia"
+  | "optimismSepolia"
+  | "optimismGoerli"
+  | "baseSepolia"
+  | "baseGoerli"
+  | "arbitrumGoerli"
+  | "polygonMumbai"
+  | "lineaGoerli"
+  | "scrollSepolia";
+```
 
 ### Publishing
 
