@@ -1,5 +1,5 @@
 import { Web3PluginBase, Contract, validator } from "web3";
-import { contractAddresses, ContractAddresses, Chain } from "./utils";
+import { contractAddresses, ContractAddresses } from "./utils";
 import SchemaRegistryABI from "./abis/schemaRegistry";
 import EASCoreABI from "./abis/eas";
 
@@ -52,25 +52,23 @@ export class EASPlugin extends Web3PluginBase {
 
   /**
    * This method returns EAS's Contract Addresses of the given chain
-   * @param chain - Chain name
-   * @returns Contract Addresses of the chain
-   * @throws Error if chain is not a valid chain
+   * @param chainId ChainId of the network to get contract addresses of
+   * @returns Contract Addresses object of the chain
+   * @throws Error if chainId is not supported
    * @example
    * ```ts
    * const web3 = new Web3("http://127.0.0.1:8545");
    * web3.registerPlugin(new EASPlugin());
-   * const addresses = web3.eas.getContractAddresses("ethereum");
+   * const addresses = web3.eas.getContractAddresses(1); //ChainId of Ethereum Mainnet
    * ```
    */
 
-  public getContractAddresses(chain: Chain): ContractAddresses {
-    const addressesObj = contractAddresses[chain];
-    if (!addressesObj) throw new Error("EAS Plugin: Invalid Chain");
+  public getContractAddresses(chainId: number): ContractAddresses {
+    const addressesObj = contractAddresses.find(
+      (config) => config.id === chainId
+    );
+    if (!addressesObj) throw new Error("EAS Plugin: Unsupported ChainId");
     return addressesObj;
-  }
-
-  public someMethod(param: string): string {
-    return param;
   }
 }
 

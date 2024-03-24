@@ -31,7 +31,7 @@ const web3 = new Web3("https://rpc-mumbai.maticvigil.com"); // Any RPC node you 
 web3.registerPlugin(new EASPlugin());
 
 // Getting contract addresses of given chain
-const addresses = web3.eas.getContractAddresses("polygonMumbai"); // See supported chains for more information.
+const addresses = web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
@@ -69,7 +69,7 @@ const [account] = await window.ethereum.request({
 web3.registerPlugin(new EASPlugin());
 
 // Getting contract addresses of given chain
-const addresses = web3.getContractAddresses("polygonMumbai"); // See supported chains for more information.
+const addresses = web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
