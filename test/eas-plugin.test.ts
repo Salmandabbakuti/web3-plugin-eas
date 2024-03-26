@@ -35,22 +35,30 @@ describe("EASPlugin Method Tests", () => {
   let schemaRegistry: SchemaRegistry;
   let easCore: EASCore;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     web3 = new Web3(rpcUrl);
     web3.registerPlugin(new EASPlugin());
-    const addresses = web3.eas.getContractAddresses(chainId);
+    const addresses = await web3.eas.getContractAddresses();
     schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
     easCore = web3.eas.easCore(addresses.eas);
   });
 
-  it("contractAddresses: should throw error if chainId is not supported", () => {
-    expect(() => {
-      web3.eas.getContractAddresses(123);
-    }).toThrow("EAS Plugin: Unsupported ChainId");
+  it("contractAddresses: should throw error if provided chainId is not supported", async () => {
+    expect(async () => {
+      const chainId = 123;
+      await web3.eas.getContractAddresses(chainId);
+    }).rejects.toThrow(`EAS Plugin: Unsupported ChainId ${chainId}`);
   });
 
-  it("contractAddresses: should get contract addresses for given chainId", () => {
-    const addresses = web3.eas.getContractAddresses(chainId);
+  it("contractAddresses: should get contract addresses for given chainId", async () => {
+    const addresses = await web3.eas.getContractAddresses(chainId);
+    expect(addresses).toBeInstanceOf(Object);
+    expect(addresses).toHaveProperty("eas");
+    expect(addresses).toHaveProperty("schemaRegistry");
+  });
+
+  it("contractAddresses: should get contract addresses for connected chain if chainId is not provided", async () => {
+    const addresses = await web3.eas.getContractAddresses();
     expect(addresses).toBeInstanceOf(Object);
     expect(addresses).toHaveProperty("eas");
     expect(addresses).toHaveProperty("schemaRegistry");

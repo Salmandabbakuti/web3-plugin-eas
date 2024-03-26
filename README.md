@@ -30,8 +30,11 @@ import { EASPlugin } from "web3-plugin-eas";
 const web3 = new Web3("https://rpc-mumbai.maticvigil.com"); // Any RPC node you wanted to connect with
 web3.registerPlugin(new EASPlugin());
 
-// Getting contract addresses of given chain
-const addresses = web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
+// Getting contract addresses of connected chain
+const addresses = await web3.eas.getContractAddresses(); // Chain ID of Polygon Mumbai
+
+// or with given chain ID
+const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
@@ -68,8 +71,11 @@ const [account] = await window.ethereum.request({
 
 web3.registerPlugin(new EASPlugin());
 
-// Getting contract addresses of given chain
-const addresses = web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
+// Getting contract addresses of connected chain
+const addresses = await web3.eas.getContractAddresses(); // Chain ID of Polygon Mumbai
+
+// or with given chain ID
+const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
@@ -173,31 +179,6 @@ console.log(tx);
 
 Refer [EAS Attestation Docs](https://docs.attest.sh/docs/developer-tools/eas-sdk#creating-onchain-attestations) for more information
 
-### Supported Chains
-
-`web3-plugin-eas` supports the following chains:
-
-```ts
-export type Chain =
-  | "ethereum"
-  | "optimism"
-  | "base"
-  | "arbitrumOne"
-  | "arbitrumNova"
-  | "polygon"
-  | "scroll"
-  | "linea"
-  | "sepolia"
-  | "optimismSepolia"
-  | "optimismGoerli"
-  | "baseSepolia"
-  | "baseGoerli"
-  | "arbitrumGoerli"
-  | "polygonMumbai"
-  | "lineaGoerli"
-  | "scrollSepolia";
-```
-
 ### Publishing
 
 To publish a new version of the package to npm, run the following command:
@@ -211,6 +192,11 @@ npm publish
 ## Change Log
 
 #### 0.0.1
+
+- Initial Release
+- Get Contract Addresses
+- Schema Registration
+- Attestations
 
 ## Resources
 
