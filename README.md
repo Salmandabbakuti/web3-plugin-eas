@@ -1,6 +1,6 @@
 # Ethereum Attestation Service(EAS) Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.0.1-brightgreen)](https://www.npmjs.com/package/web3-plugin-eas)
+[![npm version](https://img.shields.io/badge/npm-0.0.2-brightgreen)](https://www.npmjs.com/package/web3-plugin-eas)
 
 The Ethereum Attestation Service(EAS) Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Ethereum Attestation Service](https://attest.sh/). This plugin provides convenient methods for interacting with the Ethereum Attestation Service(EAS) contracts.
 
