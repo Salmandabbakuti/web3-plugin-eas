@@ -1,6 +1,6 @@
 {
   "name": "web3-plugin-eas",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web3.js plugin for Ethereum Attestation Service(EAS)",
   "license": "MIT",
   "main": "dist/index.js",

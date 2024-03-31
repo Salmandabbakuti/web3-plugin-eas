@@ -1,6 +1,6 @@
 # Ethereum Attestation Service(EAS) Web3 Plugin
 
-[![npm version](https://img.shields.io/badge/npm-0.0.2-brightgreen)](https://www.npmjs.com/package/web3-plugin-eas)
+[![npm version](https://img.shields.io/badge/npm-0.0.3-brightgreen)](https://www.npmjs.com/package/web3-plugin-eas)
 
 The Ethereum Attestation Service(EAS) Web3.js Plugin extends the capabilities of the Web3.js library to interact seamlessly with the [Ethereum Attestation Service](https://attest.sh/). This plugin provides convenient methods for interacting with the Ethereum Attestation Service(EAS) contracts.
 
@@ -27,29 +27,30 @@ npm install web3-plugin-eas web3@latest --save
 import { Web3 } from "web3";
 import { EASPlugin } from "web3-plugin-eas";
 
-const web3 = new Web3("https://rpc-mumbai.maticvigil.com"); // Any RPC node you wanted to connect with
+const web3 = new Web3("https://rpc.ankr.com/eth"); // Any RPC node you wanted to connect with
 web3.registerPlugin(new EASPlugin());
 
 // Getting contract addresses of connected chain
-const addresses = await web3.eas.getContractAddresses(); // Chain ID of Polygon Mumbai
+const addresses = await web3.eas.getContractAddresses();
 
 // or with given chain ID
-const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
+// const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
 const easCore = web3.eas.easCore(addresses.eas);
 
 // Getting schema record
-const schemaUID = "0xYourSchemaUID";
+const schemaUID =
+  "0xd100943957d0f72cf5f93d55bea0dda8083817cd20af71863fe7efbb88eeb1ba"; // mainnet
 const schemaRecord = await schemaRegistry.methods.getSchema(schemaUID).call();
-console.log("Record", schemaRecord);
+console.log("Schema Record:", schemaRecord);
 
 // Getting Attestation
 const uid =
   "0xff08bbf3d3e6e0992fc70ab9b9370416be59e87897c3d42b20549901d2cccc3e";
 const attestation = await easCore.methods.getAttestation(uid).call();
-console.log(attestation);
+console.log("Attestation:", attestation);
 ```
 
 ### Connecting Accounts to Web3
@@ -59,7 +60,7 @@ import { Web3 } from "web3";
 import { EASPlugin } from "web3-plugin-eas";
 
 // With any RPC node and private key
-const web3 = new Web3("https://rpc-mumbai.maticvigil.com/");
+const web3 = new Web3("https://rpc.ankr.com/eth");
 const wallet = web3.eth.accounts.wallet.add("0x..."); // Private Key
 const { address: account } = wallet[0];
 
@@ -72,10 +73,10 @@ const [account] = await window.ethereum.request({
 web3.registerPlugin(new EASPlugin());
 
 // Getting contract addresses of connected chain
-const addresses = await web3.eas.getContractAddresses(); // Chain ID of Polygon Mumbai
+const addresses = await web3.eas.getContractAddresses();
 
 // or with given chain ID
-const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
+// const addresses = await web3.eas.getContractAddresses(80001); // Chain ID of Polygon Mumbai
 
 // Contract Instances
 const schemaRegistry = web3.eas.schemaRegistry(addresses.schemaRegistry);
@@ -190,6 +191,10 @@ npm publish
 ```
 
 ## Change Log
+
+#### 0.0.3
+
+- Updated README.md examples
 
 #### 0.0.1
 
